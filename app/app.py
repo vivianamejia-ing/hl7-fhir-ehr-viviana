@@ -1,5 +1,4 @@
 from fastapi import Depends, FastAPI, HTTPException
-from controlador import crud
 import uvicorn
 from fhir.resources.patient import Patient
 from connection import connect_to_mongodb
