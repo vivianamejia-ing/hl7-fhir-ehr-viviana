@@ -13,6 +13,7 @@ collection = connect_to_mongodb("SamplePatientService", "patients")
 def get_patient_by_id(patient_id: str):
     patient = collection.find_one({"_id": ObjectId(patient_id)})
     if patient:
+        patient["_id"] = str(patient["_id"])
         return json.dumps(patient)  # Return patient
     else:
         raise HTTPException(status_code=404, detail="Patient not found")
