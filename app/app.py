@@ -18,7 +18,7 @@ async def get_patient_by_id(patient_id: str):
 
 @app.post("/patient", response_model=dict)
 async def add_patient(request: Request):
-    new_patient_dict = json.loads(await request.json())
+    new_patient_dict = await request.json()
     print("new_patient_dict::",new_patient_dict)
     print(type("new_patient_dict"))
     status,patient_id = WritePatient(new_patient_dict)
