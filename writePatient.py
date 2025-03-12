@@ -37,10 +37,9 @@ if __name__ == "__main__":
     collection = connect_to_mongodb(uri, db_name, collection_name)
 
     # JSON string correspondiente al artefacto Patient de HL7 FHIR
-    patient_json = '''
+    patient_json = f'''
     {
       "resourceType": "Patient",
-      "id": "123456789",
       "identifier": [
         {
           "type": "cc",
