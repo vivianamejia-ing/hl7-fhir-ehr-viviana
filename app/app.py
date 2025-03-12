@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException, Request
 import uvicorn
-from controlador.PatientCrud import GetPatientById,WritePatient
+from app.controlador.PatientCrud import GetPatientById,WritePatient
 import json
 
 app = FastAPI()
