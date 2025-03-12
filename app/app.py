@@ -12,9 +12,11 @@ collection = connect_to_mongodb("SamplePatientService", "patients")
 @app.get("/patient/{patient_id}", response_model=dict)
 def get_patient_by_id(patient_id: str):
     patient = collection.find_one({"_id": ObjectId(patient_id)})
+    patient["_id"] = str(patient["_id"])
     if patient:
-        pat = Patient.model_validate_json(json.dumps(patient))
-        patient["_id"] = str(patient["_id"])
+        patient_validate = patient.copy()
+        del patient_validate["_id"]
+        pat = Patient.model_validate_json(json.dumps(patient_validate))
         if pat.get_resource_type() == "Patient":
             return patient  # Return patient
         else:
