@@ -17,7 +17,7 @@ def get_patient_by_id(patient_id: str):
 
 @app.post("/patient", response_model=dict)
 def add_patient(request: Request):
-    new_patient_dict = request.json()
+    new_patient_dict = request
     print("new_patient_dict::",new_patient_dict)
     print(type("new_patient_dict"))
     status,patient_id = WritePatient(new_patient_dict)
