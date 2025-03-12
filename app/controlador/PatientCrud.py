@@ -13,8 +13,8 @@ def GetPatientById(patient_id: str):
             patient["_id"] = str(patient["_id"])
             return "success", patient
         return "notFound", None
-    except:
-        return "error", None
+    except Exception as e:
+        return f"error {str(e)}", None
 
 def WritePatient(patient_dict: dict):
     try:
@@ -22,7 +22,7 @@ def WritePatient(patient_dict: dict):
     except Exception as e:
         return f"errorValidating: {str(e)}",None
     validated_patient_json = pat.model_dump()
-    result = collection.insert_one(json.dumps(patient_dict))
+    result = collection.insert_one(patient_dict)
     if result:
         inserted_id = str(result.inserted_id)
         return "success",inserted_id
