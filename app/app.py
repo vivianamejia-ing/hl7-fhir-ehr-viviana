@@ -1,22 +1,29 @@
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, request
 import uvicorn
-from connection import connect_to_mongodb
-from bson import ObjectId
+from controlador.PatientCrud import GetPatientById,WritePatient
 import json
 
 app = FastAPI()
 
-collection = connect_to_mongodb("SamplePatientService", "patients")
-
 @app.get("/patient/{patient_id}", response_model=dict)
 def get_patient_by_id(patient_id: str):
-    patient = collection.find_one({"_id": ObjectId(patient_id)})
-    patient["_id"] = str(patient["_id"])
-    if patient:
+    status,patient = GetPatientById(patient_id)
+    if status=='success':
         return patient  # Return patient
-    else:
+    elif status=='notFound':
         raise HTTPException(status_code=404, detail="Patient not found")
+    else:
+        raise HTTPException(status_code=500, detail="Internal error")
 
+
+@app.post("/patient", response_model=dict)
+def add_patient():
+    new_patient_dict = json.loads(request.data)
+    status,patient_id = WritePatient(new_patient_dict)
+    if status=='success':
+        return patient_id  # Return patient
+    else:
+        raise HTTPException(status_code=500, detail=f"Validating error: {status}")
 
 if __name__ == '__main__':
     import uvicorn
