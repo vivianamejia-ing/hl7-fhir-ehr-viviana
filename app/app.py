@@ -13,8 +13,8 @@ collection = connect_to_mongodb("SamplePatientService", "patients")
 def get_patient_by_id(patient_id: str):
     patient = collection.find_one({"_id": ObjectId(patient_id)})
     if patient:
-        patient["_id"] = str(patient["_id"])
         pat = Patient.model_validate_json(json.dumps(patient))
+        patient["_id"] = str(patient["_id"])
         if pat.get_resource_type() == "Patient":
             return patient  # Return patient
         else:
