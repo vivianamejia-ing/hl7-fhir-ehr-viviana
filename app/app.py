@@ -1,7 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException, Request
 import uvicorn
 from app.controlador.PatientCrud import GetPatientById,WritePatient
-import json
 
 app = FastAPI()
 
@@ -18,7 +17,7 @@ def get_patient_by_id(patient_id: str):
 
 @app.post("/patient", response_model=dict)
 def add_patient(request: Request):
-    new_patient_dict = json.loads(request.json())
+    new_patient_dict = request.json()
     status,patient_id = WritePatient(new_patient_dict)
     if status=='success':
         return patient_id  # Return patient
