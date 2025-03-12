@@ -8,8 +8,8 @@ collection = connect_to_mongodb("SamplePatientService", "patients")
 def GetPatientById(patient_id: str):
     try:
         patient = collection.find_one({"_id": ObjectId(patient_id)})
-        patient["_id"] = str(patient["_id"])
         if patient:
+            patient["_id"] = str(patient["_id"])
             return "success", patient
         return "notFound", None
     except:
@@ -21,7 +21,7 @@ def WritePatient(patient_dict: dict):
     except Exception as e:
         return f"errorValidating: {str(e)}",None
     validated_patient_json = pat.model_dump()
-    result = collection.insert_one(validated_patient_json)
+    result = collection.insert_one(json.dumps(patient_dict))
     if result:
         inserted_id = str(result.inserted_id)
         return "success",inserted_id
