@@ -6,7 +6,7 @@ import json
 app = FastAPI()
 
 @app.get("/patient/{patient_id}", response_model=dict)
-def get_patient_by_id(patient_id: str):
+async def get_patient_by_id(patient_id: str):
     status,patient = GetPatientById(patient_id)
     if status=='success':
         return patient  # Return patient
@@ -17,8 +17,8 @@ def get_patient_by_id(patient_id: str):
 
 
 @app.post("/patient", response_model=dict)
-def add_patient(request: Request):
-    new_patient_dict = request.json()
+async def add_patient(request: Request):
+    new_patient_dict = await request.dict()
     print("new_patient_dict::",new_patient_dict)
     print(type("new_patient_dict"))
     status,patient_id = WritePatient(json.loads(new_patient_dict))
