@@ -21,7 +21,7 @@ async def add_patient(request: Request):
     new_patient_dict = dict(await request.json())
     status,patient_id = WritePatient(new_patient_dict)
     if status=='success':
-        return json.dumps({"_id":patient_id})  # Return patient
+        return {"_id":patient_id}  # Return patient id
     else:
         raise HTTPException(status_code=500, detail=f"Validating error: {status}")
 
