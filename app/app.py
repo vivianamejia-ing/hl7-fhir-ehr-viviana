@@ -13,7 +13,7 @@ async def get_patient_by_id(patient_id: str):
     elif status=='notFound':
         raise HTTPException(status_code=404, detail="Patient not found")
     else:
-        raise HTTPException(status_code=500, detail="Internal error")
+        raise HTTPException(status_code=500, detail=f"Internal error. {status}")
 
 
 @app.post("/patient", response_model=dict)

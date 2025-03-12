@@ -8,6 +8,7 @@ collection = connect_to_mongodb("SamplePatientService", "patients")
 def GetPatientById(patient_id: str):
     try:
         patient = collection.find_one({"_id": ObjectId(patient_id)})
+        print("patient::::",patient)
         if patient:
             patient["_id"] = str(patient["_id"])
             return "success", patient
