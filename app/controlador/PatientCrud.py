@@ -1,6 +1,6 @@
 from connection import connect_to_mongodb
 from bson import ObjectId
-from fhir.resources.Patient import Patient
+from fhir.resources.patient import Patient
 import json
 
 collection = connect_to_mongodb("SamplePatientService", "patients")
