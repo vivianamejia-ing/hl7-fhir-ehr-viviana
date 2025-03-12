@@ -13,6 +13,7 @@ collection = connect_to_mongodb("SamplePatientService", "patients")
 def get_patient_by_id(patient_id: str):
     patient = collection.find_one({"_id": ObjectId(patient_id)})
     patient["_id"] = str(patient["_id"])
+    print("patient:::", patient)
     if patient:
         patient_validate = patient.copy()
         del patient_validate["_id"]
