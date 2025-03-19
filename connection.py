@@ -8,3 +8,10 @@ def connect_to_mongodb(db_name, collection_name):
     db = client[db_name]
     collection = db[collection_name]
     return collection
+    db_name = "patient"
+    collection_name = "pacientes"
+    collection = connect_to_mongodb(db_name, collection_name)
+    paciente_id = collection.insert_one(paciente).inserted_id
+
+    # Devolver una respuesta
+    return jsonify({"mensaje": "Paciente guardado correctamente", "id": str(paciente_id)})
