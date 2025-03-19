@@ -9,10 +9,3 @@ def connect_to_mongodb(db_name, collection_name):
     collection = db[collection_name]
     return collection
 @app.route('/guardar_paciente', methods=['POST'])
-def guardar_paciente():
-    #Obtener los datos del formulario
-    nombre = request.form.get('nombre')
-    edad = int(request.form.get('edad'))
-    genero = request.form.get('genero')
-    diagnostico = request.form.get('diagnostico')
-    fecha_ingreso = request.form.get('fecha_ingreso')
