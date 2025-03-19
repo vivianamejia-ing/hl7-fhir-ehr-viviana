@@ -8,10 +8,11 @@ def connect_to_mongodb(db_name, collection_name):
     db = client[db_name]
     collection = db[collection_name]
     return collection
-    db_name = "patient"
-    collection_name = "pacientes"
-    collection = connect_to_mongodb(db_name, collection_name)
-    paciente_id = collection.insert_one(paciente).inserted_id
-
-    # Devolver una respuesta
-    return jsonify({"mensaje": "Paciente guardado correctamente", "id": str(paciente_id)})
+@app.route('/guardar_paciente', methods=['POST'])
+def guardar_paciente():
+    #Obtener los datos del formulario
+    nombre = request.form.get('nombre')
+    edad = int(request.form.get('edad'))
+    genero = request.form.get('genero')
+    diagnostico = request.form.get('diagnostico')
+    fecha_ingreso = request.form.get('fecha_ingreso')
