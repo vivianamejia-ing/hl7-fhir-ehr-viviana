@@ -27,3 +27,13 @@ def WritePatient(patient_dict: dict):
         return "success",inserted_id
     else:
         return "errorInserting", None
+
+def GetPatientById(patient_id: str):
+    try:
+        patient = collection.find_one({"identifier.system": ObjectId(patient_id)})
+        if patient:
+            patient["_id"] = str(patient["_id"])
+            return "success", patient
+        return "notFound", None
+    except Exception as e:
+        return f"error: {str(e)}", None
